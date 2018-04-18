@@ -3,6 +3,8 @@ package it.polito.tdp.meteo;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,7 +20,7 @@ public class MeteoController {
 	private URL location;
 
 	@FXML
-	private ChoiceBox<?> boxMese;
+	private ChoiceBox<Integer> boxMese;
 
 	@FXML
 	private Button btnCalcola;
@@ -28,6 +30,8 @@ public class MeteoController {
 
 	@FXML
 	private TextArea txtResult;
+
+	private Model model;
 
 	@FXML
 	void doCalcolaSequenza(ActionEvent event) {
@@ -46,5 +50,9 @@ public class MeteoController {
 		assert btnUmidita != null : "fx:id=\"btnUmidita\" was not injected: check your FXML file 'Meteo.fxml'.";
 		assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Meteo.fxml'.";
 	}
-
+	
+	public void setModel(Model model) {
+		this.model = model;
+		boxMese.setItems(FXCollections.observableArrayList(model.getMesi()));
+	}
 }

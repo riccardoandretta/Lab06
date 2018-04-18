@@ -16,16 +16,23 @@ public class TestMeteoDAO {
 		for (Rilevamento r : list) {
 			System.out.format("%-10s %2td/%2$2tm/%2$4tY %3d%%\n", r.getLocalita(), r.getData(), r.getUmidita());
 		}
-		
-//		System.out.println(dao.getAllRilevamentiLocalitaMese(1, "Genova"));
-//		System.out.println(dao.getAvgRilevamentiLocalitaMese(1, "Genova"));
-//		
-//		System.out.println(dao.getAllRilevamentiLocalitaMese(5, "Milano"));
-//		System.out.println(dao.getAvgRilevamentiLocalitaMese(5, "Milano"));
-//		
-//		System.out.println(dao.getAllRilevamentiLocalitaMese(5, "Torino"));
-//		System.out.println(dao.getAvgRilevamentiLocalitaMese(5, "Torino"));
-		
+
+		System.out.println(dao.getAllRilevamentiLocalitaMese(1, "Genova"));
+		System.out.println(dao.getAvgRilevamentiLocalitaMese(1, "Genova"));
+
+		System.out.println(dao.getAllRilevamentiLocalitaMese(5, "Milano"));
+		System.out.println(dao.getAvgRilevamentiLocalitaMese(5, "Milano"));
+
+		System.out.println(dao.getAllRilevamentiLocalitaMese(5, "Torino"));
+		System.out.println(dao.getAvgRilevamentiLocalitaMese(5, "Torino"));
+
+		//controllo se funziona
+		List<Rilevamento> rtemp = dao.getAllRilevamentiLocalitaMese(1, "Genova");
+		int media = 0;
+		for (Rilevamento r : rtemp) {
+			media += r.getUmidita();
+		}
+		System.out.println((double) media / 30);
 	}
 
 }
