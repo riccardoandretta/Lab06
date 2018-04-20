@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,12 +34,26 @@ public class MeteoController {
 
 	@FXML
 	void doCalcolaSequenza(ActionEvent event) {
+		txtResult.clear();
 
+		if (boxMese.getValue() != null) {
+			txtResult.setText(model.trovaSequenza(boxMese.getValue()));
+		} else {
+			txtResult.setText("Selezionare un mese");
+			return;
+		}
 	}
 
 	@FXML
 	void doCalcolaUmidita(ActionEvent event) {
+		txtResult.clear();
 
+		if (boxMese.getValue() != null) {
+			txtResult.setText(model.getUmiditaMedia(boxMese.getValue()));
+		} else {
+			txtResult.setText("Selezionare un mese");
+			return;
+		}
 	}
 
 	@FXML

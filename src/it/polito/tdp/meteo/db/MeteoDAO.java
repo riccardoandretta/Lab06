@@ -5,13 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import it.polito.tdp.meteo.bean.Citta;
 import it.polito.tdp.meteo.bean.Rilevamento;
-import it.polito.tdp.meteo.bean.SimpleCity;
 
 public class MeteoDAO {
 
@@ -102,39 +97,11 @@ public class MeteoDAO {
 
 	}
 
-	public Set<Citta> getLocalita() {
+	public List<String> getLocalita() {
 
-		final String sql = "SELECT Localita FROM situazione ORDER BY Localita ASC";
+		final String sql = "SELECT DISTINCT Localita FROM situazione ORDER BY Localita ASC";
 
-		Set<Citta> citta = new HashSet<>();
-
-		try {
-			Connection conn = DBConnect.getInstance().getConnection();
-			PreparedStatement st = conn.prepareStatement(sql);
-
-			ResultSet rs = st.executeQuery();
-
-			while (rs.next()) {
-
-				Citta c = new Citta(rs.getString("Localita"));
-				citta.add(c);
-			}
-
-			conn.close();
-			return citta;
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public Set<SimpleCity> getLocalitaSC() {
-
-		final String sql = "SELECT Localita FROM situazione ORDER BY Localita ASC";
-
-		Set<SimpleCity> citta = new HashSet<>();
+		List<String> citta = new ArrayList<>();
 
 		try {
 			Connection conn = DBConnect.getInstance().getConnection();
@@ -143,9 +110,7 @@ public class MeteoDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-
-				SimpleCity c = new SimpleCity(rs.getString("Localita"));
-				citta.add(c);
+				citta.add(rs.getString("Localita"));
 			}
 
 			conn.close();
