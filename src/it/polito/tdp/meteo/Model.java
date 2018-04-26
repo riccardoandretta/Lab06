@@ -15,20 +15,20 @@ public class Model {
 	private final static int NUMERO_GIORNI_TOTALI = 15;
 
 	private MeteoDAO meteoDAO;
-	private ArrayList<Citta> cities = null;
+	private List<Citta> cities = null;
 
 	private double punteggioMiglioreSoluzione;
-	private ArrayList<SimpleCity> miglioreSoluzione = null;
+	private List<SimpleCity> miglioreSoluzione = null;
 
 	public Model() {
 		meteoDAO = new MeteoDAO();
 
 		cities = new ArrayList<>();
-		for (String s : meteoDAO.getLocalita())
+		for (String s : meteoDAO.getLocalita()) //potevo farmi restituire direttamente la citta dal DB
 			cities.add(new Citta(s));
 	}
 
-	public String getUmiditaMedia(int mese) {
+	public String getUmiditaMedia(int mese) { // oppure potevo creare una classe che contenga l'informazione citta-umidMedia e lavorare con quella
 		if (mese < 1 || mese > 12)
 			return "**ERRORE** Mese deve essere nel range 1-12\n";
 
@@ -41,7 +41,7 @@ public class Model {
 		return sb.toString().trim();
 	}
 
-	public String trovaSequenza(int mese) {
+	public String trovaSequenza(int mese) { // allo stesso modo potevo passargli Month e ritornargli Citta/SimpleCity
 		
 		if (mese < 1 || mese > 12)
 			return "**ERRORE** Mese deve essere nel range 1-12\n";
@@ -65,10 +65,10 @@ public class Model {
 			if (score < this.punteggioMiglioreSoluzione) {
 
 				this.punteggioMiglioreSoluzione = score;
-				this.miglioreSoluzione = new ArrayList<>(parziale);
+				this.miglioreSoluzione = new ArrayList<>(parziale); // deep copy
 			}
 		}
-
+		// caso intermedio
 		for (Citta citta : cities) {
 
 			SimpleCity sc = new SimpleCity(citta.getNome());

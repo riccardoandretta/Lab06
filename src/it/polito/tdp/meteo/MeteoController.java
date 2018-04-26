@@ -19,7 +19,7 @@ public class MeteoController {
 	private URL location;
 
 	@FXML
-	private ChoiceBox<Integer> boxMese;
+	private ChoiceBox<Integer> boxMese; // oppure il tipo può essere Month, ed usare 'of' per 'costruire' il box
 
 	@FXML
 	private Button btnCalcola;

@@ -68,7 +68,8 @@ public class MeteoDAO {
 		}
 	}
 
-	public Double getAvgRilevamentiLocalitaMese(int mese, String localita) {
+	public Double getAvgRilevamentiLocalitaMese(int mese, String localita) { // oppure posso passargli un Month, e una
+																				// Citta
 
 		final String sql = "SELECT Localita, Data, AVG(Umidita) FROM situazione WHERE Localita = ? AND Month(data)=? GROUP BY Localita ORDER BY data ASC";
 		double media = 0.0;
@@ -77,12 +78,14 @@ public class MeteoDAO {
 			Connection conn = DBConnect.getInstance().getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 
+			// imposto i parametri (ho i ?)
 			st.setString(1, localita);
 			st.setInt(2, mese);
 
 			ResultSet rs = st.executeQuery();
 
-			while (rs.next()) {
+			while (rs.next()) { // while non necessario perchè ho un solo valore; sufficiente rs.next() per
+								// posizionare sulla prima (e unica) riga
 				media = rs.getDouble("AVG(Umidita)");
 			}
 
@@ -114,13 +117,13 @@ public class MeteoDAO {
 			}
 
 			conn.close();
-			return citta;
 
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		return citta;
 	}
 
 }
